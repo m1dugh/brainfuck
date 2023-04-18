@@ -13,6 +13,7 @@ DEBUG_TARGET=$(DEBUG_TARGET_DIR)/brainfuck.debug
 
 SRC_DIR=./src
 SRC=main.c utils.c parser.c visitor.c
+DEPS=$(SRC_DIR)/utils.h $(SRC_DIR)/visitor.h $(SRC_DIR)/parser.h 
 
 OBJ_ROOT=./obj
 OBJ_DIR=$(OBJ_ROOT)/Release
@@ -41,12 +42,12 @@ dbuild: $(DEBUG_OBJS)
 
 build: $(OBJS)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
 	@mkdir -p $(shell echo $@ | grep -Eo "(\w+/)+")
 	@# vim color scheme debug "
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(DEBUG_OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+$(DEBUG_OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
 	@mkdir -p $(shell echo $@ | grep -Eo "(\w+/)+")
 	@# vim color scheme debug "
 	$(CC) $(DFLAGS) -c $< -o $@
