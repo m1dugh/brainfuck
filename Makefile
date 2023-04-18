@@ -12,8 +12,8 @@ DEBUG_TARGET_DIR=$(ROOT_TARGET)/Debug
 DEBUG_TARGET=$(DEBUG_TARGET_DIR)/brainfuck.debug
 
 SRC_DIR=./src
-SRC=main.c utils.c parser.c visitor.c
-DEPS=$(SRC_DIR)/utils.h $(SRC_DIR)/visitor.h $(SRC_DIR)/parser.h 
+SRC=main.c utils.c parser.c visitor.c lexer.c
+DEPS=$(addprefix $(SRC_DIR)/, $(utils.h visitor.h parser.h lexer.h))
 
 OBJ_ROOT=./obj
 OBJ_DIR=$(OBJ_ROOT)/Release
