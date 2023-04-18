@@ -12,7 +12,7 @@ DEBUG_TARGET_DIR=$(ROOT_TARGET)/Debug
 DEBUG_TARGET=$(DEBUG_TARGET_DIR)/brainfuck.debug
 
 SRC_DIR=./src
-SRC=main.c utils.c
+SRC=main.c utils.c parser.c visitor.c
 
 OBJ_ROOT=./obj
 OBJ_DIR=$(OBJ_ROOT)/Release

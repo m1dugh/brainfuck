@@ -1,16 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "parser.h"
 #include "utils.h"
+#include "visitor.h"
 
-typedef enum token_type {
-    COMMA,
-    OPENING_BRACKET,
-    CLOSING_BRACKET,
-    LEFT_SHIFT,
-    RIGHT_SHIFT,
-    PLUS,
-    MINUS
-} token_type_t;
+#define STACK_SIZE 10000
 
 int main(int argc, char**argv) {
 
@@ -26,21 +20,51 @@ int main(int argc, char**argv) {
         exit(-1);
     }
 
-    vector_t *vec = vector_new();
+    vector_t *tokens = vector_new();
 
     while(!feof(file)) {
         int ch = fgetc(file);
         switch (ch) {
             case ',':
-                vector_push(vec, COMMA);
+                vector_push(tokens, (void*)COMMA);
+                break;
+            case '+':
+                vector_push(tokens, (void *)PLUS);
+                break;
+            case '[':
+                vector_push(tokens, (void *)OPENING_BRACKET);
+                break;
+            case ']':
+                vector_push(tokens, (void *)CLOSING_BRACKET);
+                break;
+            case '-':
+                vector_push(tokens, (void *)MINUS);
+                break;
+            case '>':
+                vector_push(tokens, (void *)RIGHT_SHIFT);
+                break;
+            case '<':
+                vector_push(tokens, (void *)LEFT_SHIFT);
+                break;
+            case '.':
+                vector_push(tokens, (void *)DOT);
+                break;
+            case ' ':
+            case '\n':
+            case -1:
                 break;
             default:
-                fprintf(stderr, "Unknown character %c\n", ch);
+                fprintf(stderr, "Unknown character %d(%c)\n", ch, ch);
                 exit(-1);
         };
     }
 
-    vector_free(vec);
+
+    AST *ast = build_ast(tokens);
+
+    visit(ast);
+
+    vector_free(tokens);
     fclose(file);
 
     return 0;

@@ -42,6 +42,10 @@ void *vector_get(vector_t* vec, size_t i) {
     return NULL;
 }
 
+size_t vector_len(vector_t *vec) {
+    return vec->_len;
+}
+
 void *vector_pop(vector_t *vec) {
     if (vec->_len > 0) {
         return vec->_elements[--vec->_len];
@@ -52,4 +56,15 @@ void *vector_pop(vector_t *vec) {
 void vector_free(vector_t *vec) {
     free(vec->_elements);
     free(vec);
+}
+
+void vector_print(vector_t *vec) {
+    printf("[");
+    if (vec->_len >= 1) {
+        printf("%d", vector_get(vec, 0));
+        for(size_t i = 1; i < vec->_len; i++) {
+            printf(", %d", vector_get(vec, i));
+        }
+    }
+    printf("]\n");
 }
