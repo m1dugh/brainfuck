@@ -3,15 +3,15 @@
 
 #include "utils.h"
 
-
-typedef struct {
-    vector_t* children;
+typedef struct
+{
+    vector_t *children;
     token_type_t token;
 } AST;
 
-AST* ast_new(token_type_t);
+AST *ast_new(token_type_t);
 
-vector_t* ast_from(vector_t *, size_t *start);
+vector_t *ast_from(vector_t *, size_t *start);
 
 void ast_free(AST *);
 

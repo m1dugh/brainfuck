@@ -3,13 +3,15 @@
 
 #include <stddef.h>
 
-typedef struct {
+typedef struct
+{
     size_t _cap;
     size_t _len;
-    void** _elements;
+    void **_elements;
 } vector_t;
 
-typedef enum token_type {
+typedef enum token_type
+{
     COMMA = ',',
     OPENING_BRACKET = '[',
     CLOSING_BRACKET = ']',
@@ -24,11 +26,11 @@ vector_t *vector_new();
 
 size_t vector_len(vector_t *);
 
-void vector_push(vector_t*, void*);
+void vector_push(vector_t *, void *);
 
-void *vector_get(vector_t*, size_t);
+void *vector_get(vector_t *, size_t);
 
-void vector_free(vector_t*);
+void vector_free(vector_t *);
 
 void *vector_pop(vector_t *);
 

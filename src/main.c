@@ -6,27 +6,32 @@
 
 #define STACK_SIZE 10000
 
-int main(int argc, char**argv) {
+int main(int argc, char **argv)
+{
 
-    if (argc != 2) {
+    if (argc != 2)
+    {
         fprintf(stderr, "Usage: brainfuck <file>.bf\n");
         exit(-1);
     }
 
     FILE *file = fopen(argv[1], "r");
 
-    if(file == NULL) {
+    if (file == NULL)
+    {
         fprintf(stderr, "File %s does not exist\n", argv[1]);
         exit(-1);
     }
 
     vector_t *tokens = vector_new();
 
-    while(!feof(file)) {
+    while (!feof(file))
+    {
         int ch = fgetc(file);
-        switch (ch) {
+        switch (ch)
+        {
             case ',':
-                vector_push(tokens, (void*)COMMA);
+                vector_push(tokens, (void *)COMMA);
                 break;
             case '+':
                 vector_push(tokens, (void *)PLUS);
@@ -58,7 +63,6 @@ int main(int argc, char**argv) {
                 exit(-1);
         };
     }
-
 
     AST *ast = build_ast(tokens);
 
